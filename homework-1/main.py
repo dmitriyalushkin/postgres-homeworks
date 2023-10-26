@@ -43,14 +43,14 @@ def insert_into_table_employees():
                     title = row["title"]
                     birth_date = row["birth_date"]
                     notes = row["notes"]
-                    cur.execute('INSERT INTO customers VALUES (%s, %s, %s, %s, %s, %s)', (
-                        int(employee_id),
-                        str(first_name),
-                        str(last_name),
-                        str(title),
-                        datetime.datetime.strptime(birth_date, '%Y-%m-%d'),
-                        str(notes)))
-                    cur.execute('SELECT * FROM customers')
+                    cur.execute('INSERT INTO employees VALUES (%s, %s, %s, %s, %s, %s)', (
+                        employee_id,
+                        first_name,
+                        last_name,
+                        title,
+                        birth_date,
+                        notes))
+                    cur.execute('SELECT * FROM employees')
                     conn.commit()
 
                     rows = cur.fetchall()
@@ -73,13 +73,13 @@ def insert_into_table_orders():
                     employee_id = row["employee_id"]
                     order_date = row["order_date"]
                     ship_city = row["ship_city"]
-                    cur.execute('INSERT INTO customers VALUES (%s, %s, %s, %s, %s)', (
-                        int(order_id),
-                        str(customer_id),
-                        int(employee_id),
-                        datetime.datetime.strptime(order_date, '%Y-%m-%d'),
-                        str(ship_city)))
-                    cur.execute('SELECT * FROM customers')
+                    cur.execute('INSERT INTO orders VALUES (%s, %s, %s, %s, %s)', (
+                        order_id,
+                        customer_id,
+                        employee_id,
+                        order_date,
+                        ship_city))
+                    cur.execute('SELECT * FROM orders')
                     conn.commit()
 
                     rows = cur.fetchall()
@@ -88,5 +88,8 @@ def insert_into_table_orders():
                         print(row)
         conn.close()
 
+insert_into_table_customers()
+insert_into_table_employees()
 insert_into_table_orders()
+
 
